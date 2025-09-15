@@ -1,0 +1,39 @@
+{
+    "name": "UEFI Development",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "args": {
+            "USERNAME": "developer",
+            "USER_UID": "1000",
+            "USER_GID": "1000"
+        }
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+    ],
+    "workspaceFolder": "/workspace",
+    "remoteUser": "developer",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "vadimcn.vscode-lldb",
+                "serayuzgur.crates",
+                "tamasfe.even-better-toml"
+            ],
+            "settings": {
+                "rust-analyzer.cargo.target": "x86_64-unknown-uefi",
+                "rust-analyzer.checkOnSave.allTargets": false
+            }
+        }
+    },
+    "forwardPorts": [],
+    "postCreateCommand": "echo 'UEFI build environment ready! Use local QEMU for testing.'",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "username": "developer"
+        }
+    }
+}
